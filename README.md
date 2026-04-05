@@ -22,7 +22,8 @@ Building a NAS from the ground up as a TrueNAS VM running on Proxmox. Currently 
 ### 📊 Proxmox Monitoring via OpenClaw *(In Progress)*
 Building a custom JavaScript skill for OpenClaw — a self-hosted AI agent platform that maintains persistent memory and tools across any model. The skill queries the Proxmox API to pull VM/container health, resource usage, and system status. Once deployed, I'll be able to check on my homelab from anywhere by messaging my OpenClaw agent — no VPN or SSH required.
 
-**Stack:** JavaScript, Proxmox API, OpenClaw
+**Stack:** JavaScript, Proxmox API, OpenClaw  
+**Source:** [proxmox.js on GitHub](https://github.com/ianmwak/ianmwak/blob/main/proxmox.js)
 
 ---
 
