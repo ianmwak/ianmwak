@@ -1,14 +1,19 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+
+const PROXMOX_TOKEN = process.env.PROXMOX_TOKEN
+const PROXMOX_HOST = process.env.PROXMOX_HOST
+const PROXMOX_NODE = process.env.PROXMOX_NODE
+
 async function getServerStatus() {
-    const nodesResponse = await fetch('https://192.168.68.60:8006/api2/json/nodes', {
+    const nodesResponse = await fetch(`https://${PROXMOX_HOST}/api2/json/nodes`, {
         headers: {
-            'Authorization': 'PVEAPIToken=root@pam!openclaw=54e1d06f-b50d-477c-8b9d-fbe13688bd6d'
+            'Authorization': `PVEAPIToken=${PROXMOX_TOKEN}`
         }
     });
 
-    const vmsResponse = await fetch('https://192.168.68.60:8006/api2/json/nodes/dell-server1/qemu', {
+    const vmsResponse = await fetch(`https://${PROXMOX_HOST}/api2/json/nodes/${PROXMOX_NODE}/qemu`, {
         headers: {
-            'Authorization': 'PVEAPIToken=root@pam!openclaw=54e1d06f-b50d-477c-8b9d-fbe13688bd6d'
+            'Authorization': `PVEAPIToken=${PROXMOX_TOKEN}`
         }
     });
 
@@ -27,7 +32,7 @@ async function getServerStatus() {
     };
 
     const nodeList = nodesJson.data;
-    const server = nodeList.find(n => n.node === 'dell-server1');
+    const server = nodeList.find(n => n.node === PROXMOX_NODE);
     const summary = {
         cpu: server ? (server.cpu * 100).toFixed(2) : '0.00',
         ramUsedGB: server ? (server.mem / 1024 / 1024 / 1024).toFixed(2) : '0.00',
@@ -36,7 +41,8 @@ async function getServerStatus() {
     };
 
     const message = `Server Status:\nCPU: ${summary.cpu}%\nRAM: ${summary.ramUsedGB}GB / ${summary.ramTotalGB}GB\nUptime: ${summary.uptimeHours} hours\n\n` +
-        `TrueNAS Status: ${truenasSummary.status}\nCPU: ${truenasSummary.cpu}%\nRAM: ${truenasSummary.ramUsedGB}GB / ${truenasSummary.ramTotalGB}GB\nUptime: ${truenasSummary.uptimeHours} hours   `;
+        `TrueNAS Status: ${truenasSummary.status}\nCPU: ${truenasSummary.cpu}%\nRAM: ${truenasSummary.ramUsedGB}GB / ${truenasSummary.ramTotalGB}GB\nUptime: ${truenasSummary.uptimeHours} hours`;
     console.log(message);
 }
+
 getServerStatus();

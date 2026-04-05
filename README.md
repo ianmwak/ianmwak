@@ -22,10 +22,10 @@ A self-hosted AI assistant built on a 3-layer architecture: Markdown directives 
 
 ---
 
-### 📊 Proxmox Monitoring via OpenClaw *(In Progress)*
-Building a custom JavaScript skill for OpenClaw — a self-hosted AI agent platform with persistent memory and tool access across any model. The skill queries the Proxmox API to pull VM/container health, resource usage, and system status. Goal: check on my homelab from anywhere by messaging my agent — no VPN or SSH required.
+### 📊 Proxmox Monitoring via OpenClaw
+Custom JavaScript skill for OpenClaw — a self-hosted AI agent platform. Queries the Proxmox REST API to report live node health and VM status. Runs on a heartbeat schedule with automatic Telegram alerts if TrueNAS goes down or resources spike. Also responds to natural language queries ("how's my server?") directly in Telegram — no VPN or SSH required.
 
-**Stack:** JavaScript, Proxmox API, OpenClaw
+**Stack:** JavaScript, Proxmox API, OpenClaw, Telegram, Gemini Flash
 
 ---
 
